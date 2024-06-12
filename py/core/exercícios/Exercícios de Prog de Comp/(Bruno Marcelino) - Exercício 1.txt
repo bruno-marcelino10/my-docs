@@ -1,0 +1,62 @@
+Exercício 1 - Programação de Computadores
+
+Turma: TB
+Professor: José Siqueira Neto
+Aluno: Bruno Marcelino - 2019013155
+
+
+EXERCÍCIO 1
+
+Exemplo de sequência finita: [5,2,4,3,1]
+
+Devemos realizar iterações para cada posição na sequência. O algoritmo só se aplica a partir do elemento situado na segunda posição, e termina assim que passar pelo último elemento.
+
+O primeiro passo é selecionar, em um subconjunto com os elementos contidos nas posições imediatamente anteriores ao analisado (Ex: elemento i), o elemento que possui o menor valor DADA A CONDIÇÃO de que seja maior do que o analisado (Ex: elemento j). 
+
+O segundo passo envolve:
+
+SE não houver nenhum elemento - em uma posição anterior à de i - menor do que ele, não realizamos nenhuma operação. 
+
+CASO CONTRÁRIO: 
+A) inserir o elemento atual (i) na posição do elemento selecionado (j)
+B) apagar o elemento (i) remanescente na posição antiga
+C) mover todos os elementos situados após o j (incluindo o j) para uma posição acima, preservando sua ordem. 
+
+
+CÓDIGO: (feito apenas para demonstrar a aplicação da linha de raciocínio)
+
+#Input
+lista = [5,2,4,3,1]
+
+#Script
+for i in range(1, len(lista)):
+
+    # subconjunto com valores anteriores a i
+    sub = lista[:i]
+    maiores_que_i = list() 
+        
+    # separa os valores maiores que i    
+    for j in sub:
+        if j > lista[i]:
+                maiores_que_i.append(j)
+        
+    # caso o elemento i seja maior que todos os anteriores
+    if len(maiores_que_i) > 0:
+        # acrescenta i no lugar do menor valor ENTRE os que são maiores que i, movendo os próximos para a frente 
+
+        menor_valor = min(maiores_que_i)
+        pos_menor_valor = lista.index(menor_valor)
+        lista.insert(pos_menor_valor, lista[i])
+        
+        # apagar o elemento (i) remanescente na posição antiga
+        lista.pop(i+1)
+        
+    print("situação atual da lista: ", lista)
+
+#Output
+situação atual da lista:  [5, 2, 4, 3, 1]
+situação atual da lista:  [2, 5, 4, 3, 1]
+situação atual da lista:  [2, 4, 5, 3, 1]
+situação atual da lista:  [2, 3, 4, 5, 1]
+situação atual da lista:  [1, 2, 3, 4, 5]
+

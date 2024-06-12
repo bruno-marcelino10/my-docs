@@ -1,0 +1,275 @@
+Exercício 1 - Programação de Computadores
+
+Turma: TB
+Professor: José Siqueira Neto
+Aluno: Bruno Marcelino - 2019013155
+Curso: Controladoria e Finanças
+
+
+EXERCÍCIO 1 
+
+A conversão consiste em:
+
+* Multiplicar continuamente um número decimal por 2, até que ele se torne um número 1 inteiro.
+
+* Caso o resultado da multiplicação seja maior do que 1, subtraímos 1 e continuamos as multiplicações até que a condição anterior seja satisfeita.
+
+* o valor das casas decimais em binário são os núeros à esquerda da vírgula obtidos em cada multiplicação. 
+
+Observação: Não sou veterano na matéria porém já sei Python e tive que recorrer à utilização da linguagem apenas como calculadora pois os resultados eram imensos. Para provar que sei realizar as operações ensinadas em sala, deixei abaixo o código feito INTEIRAMENTE por mim e printei o passo a passo para a obtenção dos resultados com precisão de várias casas decimais. 
+
+CÁLCULOS:
+matricula = [0,1,3,1,5,5]
+
+# GERANDO NÚMEROS DE 4 CASAS DECIMAIS com minha matrícula
+import random
+def gerar_numero(matricula):
+    
+    amostra = random.sample(matricula, 4)
+
+    # Criando um número decimal de 4 algarismos estritamente menor do que 1
+    numero = []
+    [numero.append(str(i)) for i in amostra]
+
+    numero.insert(0, "0")
+    numero.insert(1, ".")
+    numero = "".join(numero)
+    return(float(numero))
+
+# Aplicando a função e gerando um número
+numero = gerar_numero(matricula)
+
+# CONVERSÃO DECIMAL -> BINÁRIO pelo método manual ensinado em sala
+def conversao(num, casas):
+    
+    lista = [num]
+    n = 0
+    while n <= casas:
+        n = n + 1
+        if num < 1:
+            num = num * 2
+        else: 
+            num = (num - 1) * 2
+          
+        if num == 0: # não é necessário continuar fazendo operações caso o resultado seja finito e chegamos no resultado de 1
+            break
+            
+        lista.append(round(num, 4)) # lista com as operações realizadas
+        
+    lista = lista[1:] 
+    algarismos = []
+    for i in lista:
+        i = str(int(i)) # Obtém o primeiro o valor a esquerda da vírgula quando convertemos float para inteiro
+        algarismos.append(i)
+    
+    algarismos.insert(0, "0") # Inseri os valores "0" e "." que sempre ficam à esquerda da vírgula. Ex: "0.<algarismos>"
+    algarismos.insert(1, ".")
+    
+    binario = "".join(algarismos) # Juntamos os algarismos binários e retornamos um número binário
+    return(binario, lista)
+
+# Realização do processo com 10 números diferentes
+for i in range(10):
+    numero = gerar_numero(matricula)
+    print("Número", i+1, "em Base Decimal: ", numero)
+    print("Número", i+1, "e as 10 Primeiras Operações Realizadas: ", conversao(numero, casas = 150)[1][:10])
+    print("Número", i+1, "em Base Binária: ", conversao(numero, casas = 150)[0])
+    print()
+
+RESULTADOS: 
+Número 1 em Base Decimal:  0.1515
+Número 1 e as 10 Primeiras Operações Realizadas:  [0.303, 0.606, 1.212, 0.424, 0.848, 1.696, 1.392, 0.784, 1.568, 1.136]
+Número 1 em Base Binária:  0.0010011011001000101101000011100101011000000100000110001
+
+Número 2 em Base Decimal:  0.1105
+Número 2 e as 10 Primeiras Operações Realizadas:  [0.221, 0.442, 0.884, 1.768, 1.536, 1.072, 0.144, 0.288, 0.576, 1.152]
+Número 2 em Base Binária:  0.00011100010010011011101001011110001101010011111101111101
+
+Número 3 em Base Decimal:  0.3155
+Número 3 e as 10 Primeiras Operações Realizadas:  [0.631, 1.262, 0.524, 1.048, 0.096, 0.192, 0.384, 0.768, 1.536, 1.072]
+Número 3 em Base Binária:  0.01010000110001001001101110100101111000110101001111111
+
+Número 4 em Base Decimal:  0.1350
+Número 4 e as 10 Primeiras Operações Realizadas:  [0.27, 0.54, 1.08, 0.16, 0.32, 0.64, 1.28, 0.56, 1.12, 0.24]
+Número 4 em Base Binária:  0.0010001010001111010111000010100011110101110000101001
+
+Número 5 em Base Decimal:  0.1530
+Número 5 e as 10 Primeiras Operações Realizadas:  [0.306, 0.612, 1.224, 0.448, 0.896, 1.792, 1.584, 1.168, 0.336, 0.672]
+Número 5 em Base Binária:  0.0010011100101011000000100000110001001001101110100101111
+
+Número 6 em Base Decimal:  0.1051
+Número 6 e as 10 Primeiras Operações Realizadas:  [0.2102, 0.4204, 0.8408, 1.6816, 1.3632, 0.7264, 1.4528, 0.9056, 1.8112, 1.6224]
+Número 6 em Base Binária:  0.0001101011100111110101010110011011001111010000011111001
+
+Número 7 em Base Decimal:  0.1053
+Número 7 e as 10 Primeiras Operações Realizadas:  [0.2106, 0.4212, 0.8424, 1.6848, 1.3696, 0.7392, 1.4784, 0.9568, 1.9136, 1.8272]
+Número 7 em Base Binária:  0.000110101111010011110000110110000100010011010000000101
+
+Número 8 em Base Decimal:  0.0153
+Número 8 e as 10 Primeiras Operações Realizadas:  [0.0306, 0.0612, 0.1224, 0.2448, 0.4896, 0.9792, 1.9584, 1.9168, 1.8336, 1.6672]
+Número 8 em Base Binária:  0.00000011111010101011001101100111101000001111100100001001011
+
+Número 9 em Base Decimal:  0.5501
+Número 9 e as 10 Primeiras Operações Realizadas:  [1.1002, 0.2004, 0.4008, 0.8016, 1.6032, 1.2064, 0.4128, 0.8256, 1.6512, 1.3024]
+Número 9 em Base Binária:  0.100011001101001101011010100001011000011110010011111
+
+Número 10 em Base Decimal:  0.5011
+Número 10 e as 10 Primeiras Operações Realizadas:  [1.0022, 0.0044, 0.0088, 0.0176, 0.0352, 0.0704, 0.1408, 0.2816, 0.5632, 1.1264]
+Número 10 em Base Binária:  0.10000000010010000001011011110000000001101000110110111
+
+
+EXERCÍCIO 2
+
+O erro advém do fato de que o Python é uma linguagem de alto nível que converte os valores para o formato de linguagem de máquina (binário), onde as operações são realizadas. O resultado de 0.1 * 0.1 é 0.01, sendo que 0.1 em sua representação binária é uma dízima periódica, pois nem todos os números reais possuem representação binária. Ao converter essa dízima periódica do binário para um float a ser exibido pelo Python, não obtemos um valor exato em decimais. É a mesma coisa de multiplicar 1/3 (0.333333...) por 3. Não obtemos o valor exato "1" e sim 0.9999...
+
+A) Para descobrir que 0.11 é uma dízima em binário, fiz a sua conversão com base no meu código e os resultados obtidos foram:
+
+CÓDIGO:
+numero = 0.1
+print("Número", numero, "em Base Decimal: ", numero)
+print("Número", numero, "e as 30 Primeiras Operações Realizadas: ", conversao(numero, casas = 150)[1][:30])
+print("Número", numero, "em Base Binária: ", conversao(numero, casas = 150)[0])
+print()
+
+# Utilizando o vetor com as operações realizadas para ver se elas se repetem
+if len(conversao(numero, casas = 150)[1][:100]) != len(set(conversao(numero, casas = 150)[1][:100])):
+    print("O número", numero, "é uma dízima!") 
+
+else: 
+    print("O número", numero, "não é uma dízima!")
+
+RESULTADO:
+Número 0.1 em Base Decimal:  0.1
+Número 0.1 e as 30 Primeiras Operações Realizadas:  [0.2, 0.4, 0.8, 1.6, 1.2, 0.4, 0.8, 1.6, 1.2, 0.4, 0.8, 1.6, 1.2, 0.4, 0.8, 1.6, 1.2, 0.4, 0.8, 1.6, 1.2, 0.4, 0.8, 1.6, 1.2, 0.4, 0.8, 1.6, 1.2, 0.4]
+Número 0.1 em Base Binária:  0.0001100110011001100110011001100110011001100110011001101
+
+O número 0.1 é uma dízima!
+
+Podemos ver que os algarismos 0011 se repetem, se tratando de uma dízima.
+
+B) Utilizando o mesmo código provei que o número 0.1234 não é dízima em binário, logo o problema está na realização da subtração entre 1.1234 e 1, que utiliza o complemento em 1's do subtraendo para reduzir o processo a uma adição. Outro problema pode estar na conversão de números a linguagens de baixo nível pelo padrão IEEE754, que normalmente apresenta erros a partir da nona casa decimal. Quando subtraídos os dois números, o resultado obtido pode ter sido mais impreciso do que deveria e isso acarretou em um erro de arredondamento por parte do Python que muitas vezes já faz esse processo naturalmente.
+
+CÓDIGO
+numero = 0.1234
+print("Número", numero, "em Base Decimal: ", numero)
+print("Número", numero, "e as 30 Primeiras Operações Realizadas: ", conversao(numero, casas = 150)[1][:30])
+print("Número", numero, "em Base Binária: ", conversao(numero, casas = 150)[0])
+print()
+
+# Utilizando o vetor com as operações realizadas para ver se elas se repetem
+if len(conversao(numero, casas = 150)[1][:100]) != len(set(conversao(numero, casas = 150)[1][:100])):
+    print("O número", numero, "é uma dízima!") 
+
+else: 
+    print("O número", numero, "não é uma dízima!")
+
+RESULTADO:
+Número 0.1234 em Base Decimal:  0.1234
+Número 0.1234 e as 30 Primeiras Operações Realizadas:  [0.2468, 0.4936, 0.9872, 1.9744, 1.9488, 1.8976, 1.7952, 1.5904, 1.1808, 0.3616, 0.7232, 1.4464, 0.8928, 1.7856, 1.5712, 1.1424, 0.2848, 0.5696, 1.1392, 0.2784, 0.5568, 1.1136, 0.2272, 0.4544, 0.9088, 1.8176, 1.6352, 1.2704, 0.5408, 1.0816]
+Número 0.1234 em Base Binária:  0.00011111100101110010010001110100010100111000111011110011
+
+O número 0.1234 não é uma dízima!
+
+
+EXERCÍCIO 3:
+
+Exemplos:
+
+- 0.0064 * 7312 = 46.796800000000005
+- 0.65 ** 2 = 0.42250000000000004
+- 0.173 * 0.21 = 0.036329999999999994
+
+
+EXERCÍCIO 4:
+
+0.1515 = 00111110 00011011 001000101 1010001
+0.1105 = 00111101 11100010 010011011 1010011
+0.3155 = 00111110 10100001 100010010 0110111
+0.1350 = 00111110 00001010 001111010 1110001
+0.1530 = 00111110 00011100 101011000 0001000
+0.1051 = 00111101 11010111 001111101 0101011
+0.1053 = 00111101 11010111 101001111 0000111
+0.0153 = 00111100 01111010 101011001 1011010
+0.5501 = 00111111 00001100 110100110 1011011
+0.5011 = 00111111 00000000 010010000 0010111
+
+
+EXERCÍCIO 5:
+
+Ambas as operações funcionam conforme o método convencional aplicado em decimais, porém aplicando as devidas propriedades (que são levemente alteradas conforme a base utilizada)
+
+ADIÇÃO
+
+Propriedades: 
+* 0 + 0 = 0
+* 0 + 1 = 1
+* 1 + 1 = 0 (pula para o próximo algarismo, "vai 1")
+
+Número 1 em Base Decimal:  551
+Número 1 em Base Binária:  01000100111
+Número 2 em Base Decimal:  130
+Número 2 em Base Binária:  010000010
+Soma: 01010101001
+
+Número 1 em Base Decimal:  131
+Número 1 em Base Binária:  010000011
+Número 2 em Base Decimal:  355
+Número 2 em Base Binária:  010000010
+Soma: 01010101001
+
+Número 1 em Base Decimal:  115
+Número 1 em Base Binária:  01110011
+Número 2 em Base Decimal:  501
+Número 2 em Base Binária:  0111110101
+Soma: 01001101000
+
+
+SUBTRAÇÃO
+
+Propriedades:
+* 0 - 0 = 0
+* 0 - 1 = 1 (pula para pegar emprestado do próximo algarismo, valendo 2 ao invés de 10 na subtração convencional e retirando um do próximo)
+* 1 - 0 = 1
+* 1 - 1 = 0 
+
+Número 1 em Base Decimal:  510
+Número 1 em Base Binária:  0111111110
+Número 2 em Base Decimal:  153
+Número 2 em Base Binária:  010011001
+Diferença: 0101100101
+
+Número 1 em Base Decimal:  150
+Número 1 em Base Binária:  010010110
+Número 2 em Base Decimal:  130
+Número 2 em Base Binária:  010000010
+Diferença: 010100
+
+Número 1 em Base Decimal:  315
+Número 1 em Base Binária:  0100111011
+Número 2 em Base Decimal:  113
+Número 2 em Base Binária:  01110001
+Diferença: 011001010
+
+
+EXERCÍCIO 6:
+
+Inteiro: 55
+Fracionário: 0.55
+
+REPRESENTAÇÕES EM IEEE754:
+
+A) Inteiro: 01000010 01011100 00000000 00000000
+
+B) Fracionário: 00111111 00001100 11001100 11001101
+
+C) Inteiro Negativo: 11000010 01011100 00000000 00000000
+   Fracionário Negativo: 10111111 00001100 11001100 11001101
+
+D) 
+Inteiro Precisão Dupla: 01000000 01001011 10000000 00000000 00000000 00000000 00000000 00000000
+
+Fracionário Precisão Dupla: 00111111 11100001 10011001 10011001 10011001 10011001 10011001 10011010
+
+Inteiro Negativo Precisão Dupla: 11000000 01001011 10000000 00000000 00000000 00000000 00000000 00000000
+
+Fracionário Negativo Precisão Dupla: 10111111 11100001 10011001 10011001 10011001 10011001 10011001 10011010
